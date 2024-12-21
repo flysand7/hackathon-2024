@@ -4,6 +4,7 @@ import { swagger } from "@elysiajs/swagger";
 import { cors } from "@elysiajs/cors";
 
 import * as yapi from "./yapi";
+import * as iqair from "./iqair";
 
 new Elysia()
     .use(cors({}))
@@ -12,6 +13,7 @@ new Elysia()
     }))
     .get("/", "Hello, world")
     .get("/weather", () => yapi.get_weather())
+    .get("/air", () => iqair.get_aq_data())
     .get("/test", () => {
         yapi.get_weather();
         return "";

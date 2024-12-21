@@ -5,8 +5,8 @@ import * as api from "./api";
 
 const TOKEN = '4926fcc5-73a3-4b3c-88a3-16bdb2614b42';
 
-const lat = '46.9641'
-const lon = '142.7285'
+const lat = 46.9641;
+const lon = 142.7285;
 
 const headers = {
     'X-Yandex-Weather-Key': TOKEN,
@@ -46,7 +46,6 @@ export const get_weather = async (): Promise<api.WeatherInfo> => {
         feels_like: cur_fc.parts.day_short.feels_like,
         humidity: cur_fc.parts.day_short.humidity,
     }
-    console.log(a);
     return a;
 }
 
