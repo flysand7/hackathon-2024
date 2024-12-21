@@ -3,21 +3,21 @@ import * as vue from 'vue'
 import { ofetch } from "ofetch";
 
 const faces: {[index: string]: string[]} = {
-    'good': ["fa-solid", "fa-face-laugh", "text-4xl", "ml2"],
-    'moderate': ["fa-solid fa-face-confused", "text-4xl", "ml2"],
-    'ufsg': ["fa-solid fa-face-confounded", "text-4xl", "ml2"],
-    'unhealthy': ["fa-solid fa-face-spiral-eyes", "text-4xl", "ml2"],
-    'very_unhealthy': ["fa-solid fa-face-mask", "text-4xl", "ml2"],
-    'hazardous': ["fa-solid fa-face-dizzy", "text-4xl", "ml2"],
+    'good': ["fa-solid", "fa-face-laugh", "text-5xl", "py-6 px-9"],
+    'moderate': ["fa-solid fa-face-confused", "text-5xl", "py-6 px-9"],
+    'ufsg': ["fa-solid fa-face-confounded", "text-5xl", "py-6 px-9"],
+    'unhealthy': ["fa-solid fa-face-spiral-eyes", "text-5xl", "py-6 px-9"],
+    'very_unhealthy': ["fa-solid fa-face-mask", "text-5xl", "py-6 px-9"],
+    'hazardous': ["fa-solid fa-face-dizzy", "text-5xl", "py-6 px-9"],
 }
 
 const colors: {[index: string]: string[]} = {
-    'good': ['card-bg-air-green', 'text-white rounded-lg mt-4 shadow-lg'],
-    'moderate': ['card-bg-air-yellow','text-white rounded-lg mt-4 shadow-lg'],
-    'ufsg': ['card-bg-air-orange','text-white rounded-lg mt-4 shadow-lg'],
-    'unhealthy': ['card-bg-air-red','text-white rounded-lg mt-4 shadow-lg'],
-    'very_unhealthy': ['card-bg-air-purple','text-white rounded-lg mt-4 shadow-lg'],
-    'hazardous': ['card-bg-air-maroon','text-white rounded-lg mt-4 shadow-lg'],
+    'good': ['card-bg-air-green', 'text-white rounded-lg p-2 shadow-lg'],
+    'moderate': ['card-bg-air-yellow','text-white rounded-lg p-2 shadow-lg'],
+    'ufsg': ['card-bg-air-orange','text-white rounded-lg p-4 shadow-lg'],
+    'unhealthy': ['card-bg-air-red','text-white rounded-lg p-4 shadow-lg'],
+    'very_unhealthy': ['card-bg-air-purple','text-white rounded-lg p-4 shadow-lg'],
+    'hazardous': ['card-bg-air-maroon','text-white rounded-lg p-4 shadow-lg'],
 }
 
 const air = vue.reactive({
@@ -75,8 +75,8 @@ const getBgClass = vue.computed(() => {
         </div>
     </div>
     <div class="flex justify-around mt-4">
-        <div class="w-20 h-20 box-bg rounded-lg"><h1 class="text text-center align-text-bottom">{{ air.aqi_us }}</h1></div>
-        <div><h1 class="text text-center">{{ air.air_title }}</h1></div>
+        <div class="w-20 h-20 box-bg rounded-lg mt-2"><h1 class="text-4xl font-bold py-5 px-7">{{ air.aqi_us }}</h1></div>
+        <div><h1 class="text-3xl font-bold py-5">{{ air.air_title }}</h1></div>
         <div><i :class="getIconClass"></i></div>
     </div>
   </div>

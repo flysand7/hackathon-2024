@@ -73,7 +73,7 @@ const getIconClass = vue.computed(() => {
 </script>
 
 <template>
-  <div class="card-bg text-white rounded-lg mt-4 shadow-lg">
+  <div class="card-bg text-white rounded-lg p-4 shadow-lg">
     <div class="flex justify-between items-center">
         <div>
             <h1 class="text-lg font-bold" id="city">{{weatherInfo.city}}</h1>
