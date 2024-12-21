@@ -21,7 +21,8 @@ const colors: {[index: string]: string[]} = {
 }
 
 const air = vue.reactive({
-    aqi_us: "",
+    aqi_us: 0,
+    air_title: "",
 })
 
 ofetch('http://localhost:3000/air', { 
@@ -29,6 +30,7 @@ ofetch('http://localhost:3000/air', {
 })
 .then((data) => {
     air.aqi_us = data.aqi_us;
+    air.air_title = getStatusRus(data.aqi_us)
 });
 
 function getStatus() {
@@ -39,6 +41,18 @@ function getStatus() {
     if(air.aqi_us > 150 & air.aqi_us < 201) letter = "unhealthy";
     if(air.aqi_us > 200 & air.aqi_us < 301) letter = "very_unhealthy";
     if(air.aqi_us > 300) letter = "hazardous";
+
+    return letter;
+}
+
+function getStatusRus(num) {
+    let letter = "Хорошо";
+
+    if(num > 50 & num < 101) letter = "Средне";
+    if(num > 100 & num < 151) letter = "Плохо";
+    if(num > 150 & num < 201) letter = "Очень плохо";
+    if(num > 200 & num < 301) letter = "Ужасно";
+    if(num > 300) letter = "Смертельно";
 
     return letter;
 }
@@ -57,17 +71,13 @@ const getBgClass = vue.computed(() => {
   <div :class="getBgClass">
     <div class="flex justify-between items-center">
         <div>
-            <h1 class="text-lg font-bold" id="city"></h1>
-            <p class="text-sm opacity-80" id="today"></p>
+            <h1 class="text-lg font-bold">Качество воздуха</h1>
         </div>
     </div>
-    <div class="flex items-center mt-4 space-x-6">
-        <div class="text-6xl font-bold" id="temperature_current"></div>
-        <div><i :class="getIconClass"></i></div>
-        <div class="ml-2">
-            <p class="text-lg" id="condition"></p>
-            <p class="text-sm opacity-80" id="feels_like"></p>
-        </div>
+    <div class="flex justify-around mt-4 space-x-10">
+        <div class="w-20 h-20 box-bg rounded-lg">{{ air.aqi_us }}</div>
+        <div><h1 class="text">{{ air.air_title }}</h1></div>
+        <div class="w-20 h-20 box-bg rounded-lg"><i :class="getIconClass"></i></div>
     </div>
   </div>
 </template>
@@ -75,6 +85,10 @@ const getBgClass = vue.computed(() => {
 <style scoped>
 .read-the-docs {
   color: #888;
+}
+
+.box-bg{
+    background: linear-gradient(#0000005b, #0000001a);
 }
 
 .card-bg-air-green {
