@@ -33,3 +33,17 @@ export type WeatherInfo = {
     condition: string,
     wind_speed: number,
 };
+
+export type SeisRec={
+    id:string,
+    date:string,
+    time:string,
+    coords:{
+        lat:number,
+        lon:number,
+    },
+    mag:number,
+    depth:number,
+    distance:number,
+    location:string
+}
