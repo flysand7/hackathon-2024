@@ -33,3 +33,8 @@ export type WeatherInfo = {
     condition: string,
     wind_speed: number,
 };
+
+export type AtmosphereInfo = {
+    aqi_us: number,
+    main_us: string,
+};
