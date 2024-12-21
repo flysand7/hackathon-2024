@@ -2,9 +2,6 @@
 import * as vue from 'vue'
 import { ofetch } from "ofetch";
 
-const getIconClass = vue.computed(() => {
-   return weather_icons[weatherInfo.condition] + " text-4xl ml2"});
-
 const weather_icons = {
     'clear': 'fas fa-sun',
     'party-cloudy': 'fa-solid fa-cloud-sun',
@@ -20,7 +17,7 @@ const weather_icons = {
     'hail':'fa-solid fa-cloud-hail',
     'thunderstorm':'fa-solid fa-bolt',
     'thunderstorm-with-rain':'fa-solid-bolt',
-    'thunderstorm-with-hail':'fa-solid-hail-mixed',
+    'thunderstorm-with-hail':'fa-solid-hail-mixed'
 }
 
 const monthNames = [
@@ -79,7 +76,7 @@ ofetch('http://localhost:3000/weather', {
     </div>
     <div class="flex items-center mt-4 space-x-6">
         <div class="text-6xl font-bold" id="temperature_current">{{weatherInfo.temperature.current}}</div>
-        <div><i :class="getIconClass"></i></div>
+        <div><i class="{{weather_icons[weatherInfo.condition]}} text-4xl ml-2"></i></div>
         <div class="ml-2">
             <p class="text-lg" id="condition">{{weatherInfo.condition}}</p>
             <p class="text-sm opacity-80" id="feels_like">{{weatherInfo.feels_like}}</p>
