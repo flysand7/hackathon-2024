@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import WeatherInfo from "./components/WeatherInfo.vue";
+import AirInfo from "./components/AirInfo.vue";
 
 </script>
 

@@ -2,25 +2,22 @@
 import * as vue from 'vue'
 import { ofetch } from "ofetch";
 
-const getIconClass = vue.computed(() => {
-   return weather_icons[weatherInfo.condition] + " text-4xl ml2"});
-
-const weather_icons = {
-    'clear': 'fas fa-sun',
-    'party-cloudy': 'fa-solid fa-cloud-sun',
-    'cloudy':'fa-solid fa-cloud',
-    'overcast':'fa-solid-sleet',
-    'light-rain':'fa-solid-drizzle',
-    'rain':'fa-solid fa-cloud-rain',
-    'heavy-rain':'fa-solid fa-cloud-showers-heavy ',
-    'showers':'fa-solid fa-cloud-showers',
-    'wet-snow':'fa-solid fa-snowflake-droplets',
-    'light-snow':'fa-solid fa-cloud-snow',
-    'snow':'fa-solid fa-cloud-snow',
-    'hail':'fa-solid fa-cloud-hail',
-    'thunderstorm':'fa-solid fa-bolt',
-    'thunderstorm-with-rain':'fa-solid-bolt',
-    'thunderstorm-with-hail':'fa-solid-hail-mixed',
+const weather_icons: {[index: string]: string[]} = {
+    'clear': [ 'fas fa-sun', "text-4xl", "ml2" ],
+    'party-cloudy': [ 'fa-solid', 'fa-cloud-sun', "text-4xl", "ml2" ],
+    'cloudy': ['fa-solid', 'fa-cloud', "text-4xl", "ml2" ],
+    'overcast': ['fa-solid-sleet', "text-4xl", "ml2" ],
+    'light-rain': ['fa-solid-drizzle', "text-4xl", "ml2" ],
+    'rain': ['fa-solid fa-cloud-rain', "text-4xl", "ml2" ],
+    'heavy-rain': ['fa-solid', 'fa-cloud-showers-heavy ', "text-4xl", "ml2" ],
+    'showers': ['fa-solid', 'fa-cloud-showers', "text-4xl", "ml2" ],
+    'wet-snow': ['fa-solid', 'fa-snowflake-droplets', "text-4xl", "ml2" ],
+    'light-snow': ['fa-solid', 'fa-cloud-snow', "text-4xl", "ml2" ],
+    'snow': ['fa-solid', 'fa-cloud-snow', "text-4xl", "ml2" ],
+    'hail': ['fa-solid', 'fa-cloud-hail', "text-4xl", "ml2" ],
+    'thunderstorm': ['fa-solid', 'fa-bolt', "text-4xl", "ml2" ],
+    'thunderstorm-with-rain': ['fa-solid-bolt', "text-4xl", "ml2" ],
+    'thunderstorm-with-hail': ['fa-solid-hail-mixed', "text-4xl", "ml2" ],
 }
 
 const monthNames = [
@@ -34,6 +31,7 @@ const weatherInfo = vue.reactive({
   city: "",
   today:  "",
   condition: "",
+  condition_code: "",
   temperature: {
     current: "",
     day: "",
@@ -56,6 +54,7 @@ ofetch('http://localhost:3000/weather', {
         + data.condition.slice(1)
     weatherInfo.city = data.city;
     weatherInfo.today = "Сейчас " + date.getDate() + " " + monthNames[date.getMonth()];
+    weatherInfo.condition_code = data.condition_code;
     weatherInfo.condition = condition;
     weatherInfo.temperature.current = data.temperature.current + "°C"; 
     weatherInfo.temperature.day = data.temperature.day + "°C"; 
@@ -65,6 +64,10 @@ ofetch('http://localhost:3000/weather', {
     weatherInfo.wind_speed = data.wind_speed + " м/с, С"; 
     weatherInfo.humidity = data.humidity + "%"; 
     weatherInfo.pressure_mm = data.pressure_mm + " мм рт. ст."; 
+});
+
+const getIconClass = vue.computed(() => {
+   return weather_icons[weatherInfo.condition_code];
 });
 
 </script>
