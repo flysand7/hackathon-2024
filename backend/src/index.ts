@@ -6,21 +6,19 @@ import { cors } from "@elysiajs/cors";
 import * as yapi from "./yapi";
 import * as iqair from "./iqair";
 
+const port = 3000;
+
 new Elysia()
     .use(cors({}))
     .use(swagger({
         path: "/docs",
     }))
     .get("/", "Hello, world")
-    .get("/weather", () => yapi.get_weather())
-    .get("/air", () => iqair.get_aq_data())
-    .get("/test", () => {
-        yapi.get_weather();
-        return "";
-    })
+    .get("/weather", yapi.get_weather)
+    .get("/air", iqair.get_aq_data)
     .listen({
         hostname: "0.0.0.0",
-        port: 3000,
+        port,
     });
 
-console.log(`Elysia running!`);
+console.log(`Server running at http://localhost:${port}!`);

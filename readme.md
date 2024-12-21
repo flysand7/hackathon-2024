@@ -1,17 +1,19 @@
 
 # Сервис погоди
 
-Развернуть бекенд (требуется установить [bun](https://bun.sh/):
+Для развертки сервиса требуется установить [bun](https://bun.sh/):
+
+Бекенд:
 
 ```sh
 cd backend
 bun install
-bun run src/index.ts
+bun dev
 ```
 
-Развернуть фронтенд (требуется `python`):
+Фронтенд:
 
 ```sh
 cd frontend
-python -m http.server -d .
+bun dev
 ```

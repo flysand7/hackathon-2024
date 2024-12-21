@@ -1,0 +1,8 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #ffffff;
+}
+
+.card-bg {
+    background: linear-gradient(#001ABB, #4E67FF);
+}
