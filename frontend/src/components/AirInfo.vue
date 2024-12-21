@@ -2,116 +2,71 @@
 import * as vue from 'vue'
 import { ofetch } from "ofetch";
 
-const weather_icons = {
-    'clear': 'fas fa-sun',
-    'party-cloudy': 'fa-solid fa-cloud-sun',
-    'cloudy':'fa-solid fa-cloud',
-    'overcast':'fa-solid-sleet',
-    'light-rain':'fa-solid-drizzle',
-    'rain':'fa-solid fa-cloud-rain',
-    'heavy-rain':'fa-solid fa-cloud-showers-heavy ',
-    'showers':'fa-solid fa-cloud-showers',
-    'wet-snow':'fa-solid fa-snowflake-droplets',
-    'light-snow':'fa-solid fa-cloud-snow',
-    'snow':'fa-solid fa-cloud-snow',
-    'hail':'fa-solid fa-cloud-hail',
-    'thunderstorm':'fa-solid fa-bolt',
-    'thunderstorm-with-rain':'fa-solid-bolt',
-    'thunderstorm-with-hail':'fa-solid-hail-mixed'
+const faces: {[index: string]: string[]} = {
+    'good': ["fa-regular fa-face-laugh", "text-4xl", "ml2"],
+    'moderate': ["fa-regular fa-face-confused", "text-4xl", "ml2"],
+    'ufsg': ["fa-regular fa-face-confounded", "text-4xl", "ml2"],
+    'unhealthy': ["fa-regular fa-face-spiral-eyes", "text-4xl", "ml2"],
+    'very_unhealthy': ["fa-regular fa-face-mask", "text-4xl", "ml2"],
+    'hazardous': ["fa-regular fa-face-dizzy", "text-4xl", "ml2"],
 }
 
-const monthNames = [
-    "Января", "Февраля", "Марта",
-    "Апреля", "Мая", "Июня",
-    "Июля", "Августа", "Сентября",
-    "Октября", "Ноября", "Декабря",
-];
+const colors: {[index: string]: string[]} = {
+    'good': ['card-bg-air-green', 'text-white rounded-lg mt-4 shadow-lg'],
+    'moderate': ['card-bg-air-yellow','text-white rounded-lg mt-4 shadow-lg'],
+    'ufsg': ['card-bg-air-orange','text-white rounded-lg mt-4 shadow-lg'],
+    'unhealthy': ['card-bg-air-red','text-white rounded-lg mt-4 shadow-lg'],
+    'very_unhealthy': ['card-bg-air-purple','text-white rounded-lg mt-4 shadow-lg'],
+    'hazardous': ['card-bg-air-maroon','text-white rounded-lg mt-4 shadow-lg'],
+}
 
-const weatherInfo = vue.reactive({
-  city: "",
-  today:  "",
-  condition: "",
-  temperature: {
-    current: "",
-    day: "",
-    sunset: "",
-    sunrise: "",
-  },
-  feels_like: "",
-  wind_speed: "",
-  humidity: "",
-  pressure_mm: "",
+const air = vue.reactive({
+    aqi_us: "",
 })
 
-ofetch('http://localhost:3000/weather', { 
+ofetch('http://localhost:3000/air', { 
     method: 'GET'
 })
 .then((data) => {
-    let date = new Date(data.today);
-    const condition =
-        data.condition.charAt(0).toUpperCase()
-        + data.condition.slice(1)
-    weatherInfo.city = data.city;
-    weatherInfo.today = "Сейчас " + date.getDate() + " " + monthNames[date.getMonth()];
-    weatherInfo.condition = condition;
-    weatherInfo.temperature.current = data.temperature.current + "°C"; 
-    weatherInfo.temperature.day = data.temperature.day + "°C"; 
-    weatherInfo.temperature.sunset = data.temperature.sunset + "°C"; 
-    weatherInfo.temperature.sunrise = data.temperature.sunrise + "°C"; 
-    weatherInfo.feels_like = "Ощущается как " + data.feels_like + "°C";
-    weatherInfo.wind_speed = data.wind_speed + " м/с, С"; 
-    weatherInfo.humidity = data.humidity + "%"; 
-    weatherInfo.pressure_mm = data.pressure_mm + " мм рт. ст."; 
+    air.aqi_us = data.aqi_us;
+});
+
+function getStatus() {
+    let letter = "good";
+
+    if(air.aqi_us > 50 & air.aqi_us < 101) letter = "moderate";
+    if(air.aqi_us > 100 & air.aqi_us < 151) letter = "ufsg";
+    if(air.aqi_us > 150 & air.aqi_us < 201) letter = "unhealthy";
+    if(air.aqi_us > 200 & air.aqi_us < 301) letter = "very_unhealthy";
+    if(air.aqi_us > 300) letter = "hazardous";
+
+    return letter;
+}
+
+const getIconClass = vue.computed(() => {
+    return faces[getStatus()];
+});
+
+const getBgClass = vue.computed(() => {
+    return colors[getStatus()];
 });
 
 </script>
 
 <template>
-  <div class="card-bg text-white rounded-lg mt-4 shadow-lg">
+  <div :class="getBgClass">
     <div class="flex justify-between items-center">
         <div>
-            <h1 class="text-lg font-bold" id="city">{{weatherInfo.city}}</h1>
-            <p class="text-sm opacity-80" id="today">{{weatherInfo.today}}</p>
+            <h1 class="text-lg font-bold" id="city"></h1>
+            <p class="text-sm opacity-80" id="today"></p>
         </div>
     </div>
     <div class="flex items-center mt-4 space-x-6">
-        <div class="text-6xl font-bold" id="temperature_current">{{weatherInfo.temperature.current}}</div>
-        <div><i class="{{weather_icons[weatherInfo.condition]}} text-4xl ml-2"></i></div>
+        <div class="text-6xl font-bold" id="temperature_current"></div>
+        <div><i :class="getIconClass"></i></div>
         <div class="ml-2">
-            <p class="text-lg" id="condition">{{weatherInfo.condition}}</p>
-            <p class="text-sm opacity-80" id="feels_like">{{weatherInfo.feels_like}}</p>
-        </div>
-    </div>
-    <div class="flex justify-around items-center mt-4">
-        <div class="flex items-center">
-            <i class="fas fa-wind"></i>
-            <p class="ml-1" id="wind_speed">{{weatherInfo.wind_speed}}</p>
-        </div>
-        <div class="flex items-center">
-            <i class="fas fa-tint"></i>
-            <p class="ml-1" id="humidity">{{weatherInfo.humidity}}</p>
-        </div>
-        <div class="flex items-center">
-            <i class="fas fa-tachometer-alt"></i>
-            <p class="ml-1" id="pressure_mm">{{weatherInfo.pressure_mm}}</p>
-        </div>
-    </div>
-    <div class="flex spa"></div>
-    <div class="flex justify-around items-center mt-4 space-x-2 overflow-x-auto">
-        <div class="text-center">
-            <div>Утром</div>
-            <i class="fas fa-cloud-sun"></i>
-            <div id ="temperature_sunrise">{{weatherInfo.temperature.sunrise}}</div>
-        </div>
-        <div class="text-center">
-            <div>Днём</div>
-            <i class="fas fa-cloud-sun"></i>
-            <div id = "temperature_day">{{weatherInfo.temperature.day}}</div>
-        </div>
-        <div class="text-center">
-            <div>Вечером</div>
-            <i class="fas fa-cloud-sun"></i>
-            <div id="temperature_sunset">{{weatherInfo.temperature.sunset}}</div>
+            <p class="text-lg" id="condition"></p>
+            <p class="text-sm opacity-80" id="feels_like"></p>
         </div>
     </div>
   </div>
@@ -120,5 +75,29 @@ ofetch('http://localhost:3000/weather', {
 <style scoped>
 .read-the-docs {
   color: #888;
+}
+
+.card-bg-air-green {
+    background: linear-gradient(#00bb00, #61da61);
+}
+
+.card-bg-air-yellow {
+    background: linear-gradient(#fffb00, #fffc50);
+}
+
+.card-bg-air-orange {
+    background: linear-gradient(#ff8000, #ffb062);
+}
+
+.card-bg-air-red {
+    background: linear-gradient(#ff0000, #ff4848);
+}
+
+.card-bg-air-purple {
+    background: linear-gradient(#a900bc, #f175ff);
+}
+
+.card-bg-air-maroon {
+    background: linear-gradient(#5d0019, #a3052f);
 }
 </style>
