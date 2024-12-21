@@ -3,21 +3,21 @@ import * as vue from 'vue'
 import { ofetch } from "ofetch";
 
 const weather_icons: {[index: string]: string[]} = {
-    'clear': [ 'fas fa-sun', "text-4xl", "ml2" ],
-    'party-cloudy': [ 'fa-solid', 'fa-cloud-sun', "text-4xl", "ml2" ],
-    'cloudy': ['fa-solid', 'fa-cloud', "text-4xl", "ml2" ],
-    'overcast': ['fa-solid-sleet', "text-4xl", "ml2" ],
-    'light-rain': ['fa-solid-drizzle', "text-4xl", "ml2" ],
-    'rain': ['fa-solid fa-cloud-rain', "text-4xl", "ml2" ],
-    'heavy-rain': ['fa-solid', 'fa-cloud-showers-heavy ', "text-4xl", "ml2" ],
-    'showers': ['fa-solid', 'fa-cloud-showers', "text-4xl", "ml2" ],
-    'wet-snow': ['fa-solid', 'fa-snowflake-droplets', "text-4xl", "ml2" ],
-    'light-snow': ['fa-solid', 'fa-cloud-snow', "text-4xl", "ml2" ],
-    'snow': ['fa-solid', 'fa-cloud-snow', "text-4xl", "ml2" ],
-    'hail': ['fa-solid', 'fa-cloud-hail', "text-4xl", "ml2" ],
-    'thunderstorm': ['fa-solid', 'fa-bolt', "text-4xl", "ml2" ],
-    'thunderstorm-with-rain': ['fa-solid-bolt', "text-4xl", "ml2" ],
-    'thunderstorm-with-hail': ['fa-solid-hail-mixed', "text-4xl", "ml2" ],
+    'clear': [ "fas fa-sun", "text-4xl", "ml2" ],
+    'party-cloudy': [ "fa-solid', 'fa-cloud-sun", "text-4xl", "ml2" ],
+    'cloudy': ["fa-solid', 'fa-cloud", "text-4xl", "ml2" ],
+    'overcast': ["fa-solid-sleet", "text-4xl", "ml2" ],
+    'light-rain': ["fa-solid-drizzle", "text-4xl", "ml2" ],
+    'rain': ["fa-solid fa-cloud-rain", "text-4xl", "ml2" ],
+    'heavy-rain': ["fa-solid', 'fa-cloud-showers-heavy", "text-4xl", "ml2" ],
+    'showers': ["fa-solid', 'fa-cloud-showers", "text-4xl", "ml2" ],
+    'wet-snow': ["fa-solid', 'fa-snowflake-droplets", "text-4xl", "ml2" ],
+    'light-snow': ["fa-solid', 'fa-cloud-snow", "text-4xl", "ml2" ],
+    'snow': ["fa-solid', 'fa-cloud-snow", "text-4xl", "ml2" ],
+    'hail': ["fa-solid', 'fa-cloud-hail", "text-4xl", "ml2" ],
+    'thunderstorm': ["fa-solid', 'fa-bolt", "text-4xl", "ml2" ],
+    'thunderstorm-with-rain': ["fa-solid-bolt", "text-4xl", "ml2" ],
+    'thunderstorm-with-hail': ["fa-solid-hail-mixed", "text-4xl", "ml2" ],
 }
 
 const monthNames = [

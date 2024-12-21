@@ -3,12 +3,12 @@ import * as vue from 'vue'
 import { ofetch } from "ofetch";
 
 const faces: {[index: string]: string[]} = {
-    'good': ["fa-regular fa-face-laugh", "text-4xl", "ml2"],
-    'moderate': ["fa-regular fa-face-confused", "text-4xl", "ml2"],
-    'ufsg': ["fa-regular fa-face-confounded", "text-4xl", "ml2"],
-    'unhealthy': ["fa-regular fa-face-spiral-eyes", "text-4xl", "ml2"],
-    'very_unhealthy': ["fa-regular fa-face-mask", "text-4xl", "ml2"],
-    'hazardous': ["fa-regular fa-face-dizzy", "text-4xl", "ml2"],
+    'good': ["fa-solid", "fa-face-laugh", "text-4xl", "ml2"],
+    'moderate': ["fa-solid fa-face-confused", "text-4xl", "ml2"],
+    'ufsg': ["fa-solid fa-face-confounded", "text-4xl", "ml2"],
+    'unhealthy': ["fa-solid fa-face-spiral-eyes", "text-4xl", "ml2"],
+    'very_unhealthy': ["fa-solid fa-face-mask", "text-4xl", "ml2"],
+    'hazardous': ["fa-solid fa-face-dizzy", "text-4xl", "ml2"],
 }
 
 const colors: {[index: string]: string[]} = {
@@ -74,10 +74,10 @@ const getBgClass = vue.computed(() => {
             <h1 class="text-lg font-bold">Качество воздуха</h1>
         </div>
     </div>
-    <div class="flex justify-around mt-4 space-x-10">
-        <div class="w-20 h-20 box-bg rounded-lg">{{ air.aqi_us }}</div>
-        <div><h1 class="text">{{ air.air_title }}</h1></div>
-        <div class="w-20 h-20 box-bg rounded-lg"><i :class="getIconClass"></i></div>
+    <div class="flex justify-around mt-4">
+        <div class="w-20 h-20 box-bg rounded-lg"><h1 class="text text-center align-text-bottom">{{ air.aqi_us }}</h1></div>
+        <div><h1 class="text text-center">{{ air.air_title }}</h1></div>
+        <div><i :class="getIconClass"></i></div>
     </div>
   </div>
 </template>
