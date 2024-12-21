@@ -36,22 +36,22 @@ ofetch('http://localhost:3000/air', {
 function getStatus() {
     let letter = "good";
 
-    if(air.aqi_us > 50 & air.aqi_us < 101) letter = "moderate";
-    if(air.aqi_us > 100 & air.aqi_us < 151) letter = "ufsg";
-    if(air.aqi_us > 150 & air.aqi_us < 201) letter = "unhealthy";
-    if(air.aqi_us > 200 & air.aqi_us < 301) letter = "very_unhealthy";
+    if(air.aqi_us > 50 && air.aqi_us < 101) letter = "moderate";
+    if(air.aqi_us > 100 && air.aqi_us < 151) letter = "ufsg";
+    if(air.aqi_us > 150 && air.aqi_us < 201) letter = "unhealthy";
+    if(air.aqi_us > 200 && air.aqi_us < 301) letter = "very_unhealthy";
     if(air.aqi_us > 300) letter = "hazardous";
 
     return letter;
 }
 
-function getStatusRus(num) {
+function getStatusRus(num: number) {
     let letter = "Хорошо";
 
-    if(num > 50 & num < 101) letter = "Средне";
-    if(num > 100 & num < 151) letter = "Плохо";
-    if(num > 150 & num < 201) letter = "Очень плохо";
-    if(num > 200 & num < 301) letter = "Ужасно";
+    if(num > 50 && num < 101) letter = "Средне";
+    if(num > 100 && num < 151) letter = "Плохо";
+    if(num > 150 && num < 201) letter = "Очень плохо";
+    if(num > 200 && num < 301) letter = "Ужасно";
     if(num > 300) letter = "Смертельно";
 
     return letter;
