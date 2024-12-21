@@ -2,6 +2,24 @@
 import * as vue from 'vue'
 import { ofetch } from "ofetch";
 
+const weather_icons = {
+    'clear': 'fas fa-sun',
+    'party-cloudy': ' ',
+    'cloudy':'fa-solid fa-cloud',
+    'overcast':'fa-solid ',
+    'light-rain':'fa-solid ',
+    'rain':'fa-solid ',
+    'heavy-rain':'fa-solid',
+    'showers':'fa-solid',
+    'wet-snow':'fa-solid',
+    'light-snow':'fa-solid',
+    'snow':'fa-solid fa-snowflake',
+    'hail':'fa-solid',
+    'thunderstorm':'fa-solid fa-bolt',
+    'thunderstorm-with-rain':'fa-solid',
+    'thunderstorm-with-hail':'fa-solid'
+}
+
 const monthNames = [
     "Января", "Февраля", "Марта",
     "Апреля", "Мая", "Июня",
@@ -25,7 +43,7 @@ const weatherInfo = vue.reactive({
   pressure_mm: "",
 })
 
-ofetch('http://localhost:3001/weather', { 
+ofetch('http://localhost:3000/weather', { 
     method: 'GET'
 })
 .then((data) => {
@@ -49,16 +67,16 @@ ofetch('http://localhost:3001/weather', {
 </script>
 
 <template>
-  <div class="card-bg text-white rounded-lg p-8 shadow-lg">
+  <div class="card-bg text-white rounded-lg mt-4 shadow-lg">
     <div class="flex justify-between items-center">
         <div>
             <h1 class="text-lg font-bold" id="city">{{weatherInfo.city}}</h1>
             <p class="text-sm opacity-80" id="today">{{weatherInfo.today}}</p>
         </div>
     </div>
-    <div class="flex items-center mt-4">
+    <div class="flex items-center mt-4 space-x-6">
         <div class="text-6xl font-bold" id="temperature_current">{{weatherInfo.temperature.current}}</div>
-        <i class="fas fa-sun text-4xl ml-2"></i>
+        <div><i class="{{ weather_icons[weatherInfo.condition] }} text-4xl ml-2"></i></div>
         <div class="ml-2">
             <p class="text-lg" id="condition">{{weatherInfo.condition}}</p>
             <p class="text-sm opacity-80" id="feels_like">{{weatherInfo.feels_like}}</p>
