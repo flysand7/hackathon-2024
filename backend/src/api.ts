@@ -9,13 +9,32 @@ export type WeatherCondition =
     | "heavy"
     | "showers"
     | "wet"
-    | "light"
-    | "snow"
     | "snow"
     | "hail"
-    | "thunderstorm"
-    | "thunderstorm"
     | "thunderstorm";
+
+export type Condition_Map = {
+    [index: string]: string,
+};
+
+export const condition_map: Condition_Map = {
+    "clear":                  "ясно",
+    "partly-cloudy":          "малооблачно",
+    "cloudy":                 "облачно с прояснениями",
+    "overcast":               "пасмурно",
+    "light-rain":             "небольшой дождь",
+    "rain":                   "дождь",
+    "heavy-rain":             "сильный дождь",
+    "showers":                "ливень",
+    "wet-snow":               "дождь со снегом",
+    "light-snow":             "небольшой снег",
+    "snow":                   "снег",
+    "snow-showers":           "снегопад",
+    "hail":                   "град",
+    "thunderstorm":           "гроза",
+    "thunderstorm-with-rain": "дождь с грозой",
+    "thunderstorm-with-hail": "гроза с градом",
+}
 
 export type WeatherInfo = {
     today: string,
@@ -30,6 +49,7 @@ export type WeatherInfo = {
     feels_like: number,
     humidity: number,
     pressure_mm: number,
+    condition_code: string,
     condition: string,
     wind_speed: number,
 };

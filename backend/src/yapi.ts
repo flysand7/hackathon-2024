@@ -34,7 +34,8 @@ export const get_weather = async (): Promise<api.WeatherInfo> => {
         today: date,
         city: "Южно-Сахалинск",
         pressure_mm: res.info.def_pressure_mm,
-        condition: res.fact.condition,
+        condition: api.condition_map[res.fact.condition],
+        condition_code: res.fact.condition,
         temperature: {
             current: res.fact.temp,
             sunrise: cur_fc.parts.morning.temp_avg,
